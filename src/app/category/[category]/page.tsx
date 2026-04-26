@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Icon from "@/components/Icon";
 import ProductCard from "@/components/ProductCard";
 import {
   categories,
@@ -19,7 +21,9 @@ export function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: CategoryPageProps) {
+export async function generateMetadata({
+  params,
+}: CategoryPageProps): Promise<Metadata> {
   const { category: slug } = await params;
   const categoryData = getCategoryBySlug(slug);
 
@@ -32,8 +36,18 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   const [category, categoryItems] = categoryData;
 
   return {
-    title: `${category} | Catalog App`,
+    title: category,
     description: `Browse all ${categoryItems.length} products in ${category}.`,
+    openGraph: {
+      title: `${category} | Catalog App`,
+      description: `Browse all ${categoryItems.length} products in ${category}.`,
+      images: [
+        {
+          url: categoryItems[0]?.image,
+          alt: category,
+        },
+      ],
+    },
   };
 }
 
@@ -53,9 +67,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <header className="grid gap-5 border-b border-zinc-200 pb-6">
           <Link
             href="/"
-            className="w-fit text-sm font-medium text-emerald-700 transition hover:text-emerald-900"
+            className="inline-flex w-fit items-center gap-2 text-sm font-medium text-emerald-700 transition hover:text-emerald-900"
           >
-            Back to categories
+            <Icon name="arrow-left" />
+            <span>Back to categories</span>
           </Link>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>

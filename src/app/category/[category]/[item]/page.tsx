@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Icon from "@/components/Icon";
 import {
   categories,
   categorySlug,
@@ -24,7 +26,9 @@ export function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params }: ItemDetailPageProps) {
+export async function generateMetadata({
+  params,
+}: ItemDetailPageProps): Promise<Metadata> {
   const { category, item } = await params;
   const itemData = getItemBySlugs(category, item);
 
@@ -35,8 +39,18 @@ export async function generateMetadata({ params }: ItemDetailPageProps) {
   }
 
   return {
-    title: `${itemData.item.itemname} | Catalog App`,
+    title: itemData.item.itemname,
     description: `View details for ${itemData.item.itemname} in ${itemData.categoryName}.`,
+    openGraph: {
+      title: `${itemData.item.itemname} | Catalog App`,
+      description: `View details for ${itemData.item.itemname} in ${itemData.categoryName}.`,
+      images: [
+        {
+          url: itemData.item.image,
+          alt: itemData.item.itemname,
+        },
+      ],
+    },
   };
 }
 
@@ -56,9 +70,10 @@ export default async function ItemDetailPage({ params }: ItemDetailPageProps) {
         <div className="grid gap-5">
           <Link
             href={categoryHref}
-            className="w-fit text-sm font-medium text-emerald-700 transition hover:text-emerald-900"
+            className="inline-flex w-fit items-center gap-2 text-sm font-medium text-emerald-700 transition hover:text-emerald-900"
           >
-            Back to {itemData.categoryName}
+            <Icon name="arrow-left" />
+            <span>Back to {itemData.categoryName}</span>
           </Link>
 
           <div className="relative min-h-[320px] overflow-hidden rounded-lg border border-zinc-200 bg-white sm:min-h-[460px]">

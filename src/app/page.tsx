@@ -1,6 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import Icon from "@/components/Icon";
 import ProductCard from "@/components/ProductCard";
 import { categories, categorySlug } from "@/lib/catalog";
+
+export const metadata: Metadata = {
+  title: "Category Overview",
+  description:
+    "Browse catalog categories with quick product previews and direct links to full category pages.",
+  openGraph: {
+    title: "Category Overview | Catalog App",
+    description:
+      "Browse catalog categories with quick product previews and direct links to full category pages.",
+  },
+};
 
 export default function Home() {
   return (
@@ -42,9 +55,10 @@ export default function Home() {
                   </div>
                   <Link
                     href={categoryHref}
-                    className="rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:border-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
+                    className="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:border-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
                   >
-                    View all {categoryItems.length}
+                    <span>View all {categoryItems.length}</span>
+                    <Icon name="arrow-right" />
                   </Link>
                 </div>
 
