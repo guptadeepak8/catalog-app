@@ -1,3 +1,5 @@
+import SvgIcon from "@mui/material/SvgIcon";
+
 type IconProps = {
   name: "arrow-left" | "arrow-right";
   className?: string;
@@ -5,32 +7,19 @@ type IconProps = {
 
 export default function Icon({ name, className = "size-4" }: IconProps) {
   const paths = {
-    "arrow-left": (
-      <>
-        <path d="m12 19-7-7 7-7" />
-        <path d="M19 12H5" />
-      </>
-    ),
-    "arrow-right": (
-      <>
-        <path d="M5 12h14" />
-        <path d="m12 5 7 7-7 7" />
-      </>
-    ),
+    "arrow-left":
+      "M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z",
+    "arrow-right":
+      "M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z",
   };
 
   return (
-    <svg
-      aria-hidden="true"
+    <SvgIcon
       className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="2"
-      viewBox="0 0 24 24"
+      fontSize="small"
+      aria-hidden="true"
     >
-      {paths[name]}
-    </svg>
+      <path d={paths[name]} />
+    </SvgIcon>
   );
 }

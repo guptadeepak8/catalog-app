@@ -16,10 +16,10 @@ export default function ProductCard({ item, propertyLimit }: ProductCardProps) {
   return (
     <Link
       href={itemHref(item)}
-      className="group block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2"
+      className="group block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
     >
-      <article className="h-full overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm transition group-hover:-translate-y-0.5 group-hover:shadow-md">
-        <div className="relative aspect-[4/3] bg-zinc-100">
+      <article className="h-full overflow-hidden rounded-lg border border-neutral-100 bg-[#fffefe] shadow-sm transition group-hover:-translate-y-0.5 group-hover:border-neutral-200 group-hover:shadow-md">
+        <div className="relative aspect-[4/3] bg-[#f6f6f5]">
           <Image
             src={item.image}
             alt={item.itemname}
@@ -29,17 +29,17 @@ export default function ProductCard({ item, propertyLimit }: ProductCardProps) {
           />
         </div>
         <div className="grid gap-3 p-4">
-          <h3 className="text-lg font-semibold leading-6 text-zinc-950 group-hover:text-emerald-800">
+          <h3 className="text-lg font-semibold leading-6 text-neutral-950 group-hover:text-blue-800">
             {item.itemname}
           </h3>
           <dl className="grid gap-2 text-sm">
             {visibleProperties.map((property) => (
               <div
                 key={`${item.itemname}-${property.label}`}
-                className="flex items-center justify-between gap-3 border-t border-zinc-100 pt-2"
+                className="flex items-center justify-between gap-3 border-t border-neutral-100 pt-2"
               >
-                <dt className="text-zinc-500">{property.label}</dt>
-                <dd className="text-right font-medium text-zinc-800">
+                <dt className="text-neutral-500">{property.label}</dt>
+                <dd className="text-right font-medium text-neutral-800">
                   {property.value}
                 </dd>
               </div>
