@@ -1,25 +1,6 @@
-import Image from "next/image";
-import catalogItems from "../../data.json";
-
-type CatalogItem = {
-  itemname: string;
-  category: string;
-  image: string;
-  itemprops: {
-    label: string;
-    value: string;
-  }[];
-};
-
-const items = catalogItems as CatalogItem[];
-
-const categories = Object.entries(
-  items.reduce<Record<string, CatalogItem[]>>((groupedItems, item) => {
-    groupedItems[item.category] = groupedItems[item.category] ?? [];
-    groupedItems[item.category].push(item);
-    return groupedItems;
-  }, {}),
-);
+import Link from "next/link";
+import ProductCard from "@/components/ProductCard";
+import { categories, categorySlug } from "@/lib/catalog";
 
 export default function Home() {
   return (
@@ -41,62 +22,44 @@ export default function Home() {
         </header>
 
         <div className="grid gap-8">
-          {categories.map(([category, categoryItems]) => (
-            <section key={category} className="grid gap-4">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h2 className="text-2xl font-semibold text-zinc-950">
-                    {category}
-                  </h2>
-                  <p className="mt-1 text-sm text-zinc-500">
-                    {categoryItems.length} items available
-                  </p>
-                </div>
-                <span className="rounded-full border border-zinc-300 px-3 py-1 text-sm font-medium text-zinc-700">
-                  Preview
-                </span>
-              </div>
+          {categories.map(([category, categoryItems]) => {
+            const previewItems = categoryItems.slice(0, 4);
+            const categoryHref = `/category/${categorySlug(category)}`;
 
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {categoryItems.slice(0, 4).map((item) => (
-                  <article
-                    key={item.itemname}
-                    className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            return (
+              <section key={category} className="grid gap-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <h2 className="text-2xl font-semibold text-zinc-950">
+                      <Link href={categoryHref} className="hover:text-emerald-700">
+                        {category}
+                      </Link>
+                    </h2>
+                    <p className="mt-1 text-sm text-zinc-500">
+                      Showing {previewItems.length} of {categoryItems.length}{" "}
+                      products
+                    </p>
+                  </div>
+                  <Link
+                    href={categoryHref}
+                    className="rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 transition hover:border-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
                   >
-                    <div className="relative aspect-4/3 bg-zinc-100">
-                      <Image
-                        src={item.image}
-                        alt={item.itemname}
-                        fill
-                        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="grid gap-3 p-4">
-                      <h3 className="text-lg font-semibold leading-6 text-zinc-950">
-                        {item.itemname}
-                      </h3>
-                      <dl className="grid gap-2 text-sm">
-                        {item.itemprops.slice(0, 2).map((property) => (
-                          <div
-                            key={`${item.itemname}-${property.label}`}
-                            className="flex items-center justify-between gap-3 border-t border-zinc-100 pt-2"
-                          >
-                            <dt className="text-zinc-500">
-                              {property.label}
-                            </dt>
-                            <dd className="text-right font-medium text-zinc-800">
-                              {property.value}
-                            </dd>
-                          </div>
-                        ))}
-                      </dl>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          ))}
+                    View all {categoryItems.length}
+                  </Link>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {previewItems.map((item) => (
+                    <ProductCard
+                      key={item.itemname}
+                      item={item}
+                      propertyLimit={2}
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       </div>
     </main>
