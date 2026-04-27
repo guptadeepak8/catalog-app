@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Catalog App
+
+A responsive product catalog built with Next.js. The app reads product data from `data.json`, groups items by category, and provides category overview, category listing, and product detail pages.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev
+pnpm build
+pnpm start
+pnpm lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Tools and Technologies Used
 
-## Deploy on Vercel
+- Next.js 16 with the App Router for routing, page metadata, static params, and image optimization.
+- React 19 and TypeScript for typed, component-based UI development.
+- Tailwind CSS  for responsive layout and styling.
+- JSON data as the catalog source, with utility functions for grouping, slug creation, and lookups.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Time Taken
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The assignment took approximately 3 hours to complete, including data modeling, page implementation, responsive styling, loading states, and final cleanup.
+
+### Implementation Approach
+
+I structured the app around the catalog data first. The shared catalog utility module converts the raw JSON into typed items, groups them by category, creates stable URL slugs, and provides lookup helpers for category and product detail routes.
+
+The home page shows a category overview with preview products, each category page lists all products in that category, and each product detail page displays the full item image and properties. Reusable components such as `ProductCard`, `Icon`, and skeleton loaders keep the UI consistent across pages.
+
+The UI approach is intentionally simple and catalog-focused: responsive grids, clear hierarchy, optimized product images, accessible links, and metadata for each route. This keeps the experience easy to scan while still supporting direct navigation to category and item detail pages.

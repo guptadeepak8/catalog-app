@@ -5,7 +5,7 @@ function SkeletonBlock({ className }: { className: string }) {
 export function ProductCardSkeleton() {
   return (
     <article className="overflow-hidden rounded-lg border border-neutral-100 bg-[#fffefe] shadow-sm">
-      <SkeletonBlock className="aspect-[4/3] rounded-none bg-[#f1f1ee]" />
+      <SkeletonBlock className="aspect-4/3 rounded-none bg-[#f1f1ee]" />
       <div className="grid gap-3 p-4">
         <SkeletonBlock className="h-5 w-3/4" />
         <div className="grid gap-2">

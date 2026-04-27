@@ -19,7 +19,7 @@ export default function ProductCard({ item, propertyLimit }: ProductCardProps) {
       className="group block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
     >
       <article className="h-full overflow-hidden rounded-lg border border-neutral-100 bg-[#fffefe] shadow-sm transition group-hover:-translate-y-0.5 group-hover:border-neutral-200 group-hover:shadow-md">
-        <div className="relative aspect-[4/3] bg-[#f6f6f5]">
+        <div className="relative aspect-4/3 bg-[#f6f6f5]">
           <Image
             src={item.image}
             alt={item.itemname}
